@@ -1,3 +1,9 @@
+//*************************
+//	Global variables
+//*************************
+
+var gameOver = false;
+
 //**************************
 //	hangman object
 //**************************
@@ -6,14 +12,17 @@ var hangman = {
 	//~~~~~~~~~~~~~~
 	// Properties
 	//~~~~~~~~~~~~~~
+	totalGuesses: 9,
+	guessesLeft: 9,
 	wordBag: ["pig", "cow", "zebra", "lion", "animal", "sahara", "jungle"],  // holds all available words for the game
-	word: "",
 	// Array with hangman images
 	images: ["assets/images/hangman_2.png", "assets/images/hangman_3.png", "assets/images/hangman_4.png",
 			"assets/images/hangman_5.png", "assets/images/hangman_6.png", "assets/images/hangman_7.png", 
 			"assets/images/hangman_8.png", "assets/images/hangman_9.png", "assets/images/hangman_10.png"], 
 	gameLetters: [],  // Holds word for displaying
 	usedLetters: [],
+	wins: 0,
+	losses: 0,
 
 	//~~~~~~~~~~~~~
 	// Methods
@@ -62,7 +71,21 @@ var hangman = {
 
 		return alphabet.test(key);
 	},
+
+	playGame: function(key) {
+
+		do {
+			// Pick word(random) from wordBag
+			let word = hangman.wordBag[Math.floor(Math.random() * hangman.wordBag.length)];
+		}while (gameOver === false);
+	}
 }
+
+//****************
+//	Play Game
+//****************
+
+
 
 
 
