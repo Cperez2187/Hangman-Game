@@ -15,6 +15,7 @@ var hangman = {
 	totalGuesses: 9,
 	guessesLeft: 9,
 	wordBag: ["pig", "cow", "zebra", "lion", "animal", "sahara", "jungle"],  // holds all available words for the game
+	word: "",  // Holds a word from wordBag
 	// Array with hangman images
 	images: ["assets/images/hangman_2.png", "assets/images/hangman_3.png", "assets/images/hangman_4.png",
 			"assets/images/hangman_5.png", "assets/images/hangman_6.png", "assets/images/hangman_7.png", 
@@ -72,20 +73,37 @@ var hangman = {
 		return alphabet.test(key);
 	},
 
+	// Grabs a random word from wordBag
+	randomWord: function() {
+		word = wordBag[2];
+		// word = wordBag[Math.floor(Math.random() * wordBag.length)];
+	},
+
 	playGame: function(key) {
 
-		do {
-			// Pick word(random) from wordBag
-			let word = hangman.wordBag[Math.floor(Math.random() * hangman.wordBag.length)];
-		}while (gameOver === false);
-	}
-}
+	},
+};
 
 //****************
 //	Play Game
 //****************
 
+do {
+	// Sets 'word' attribute = random word from 'wordBag'
+	hangman.randomWord();
 
+	// Fills 'gameLetters' array with underscores representing missing letters of word
+	for (var i = 0; i < hangman.word.length; i++) {
+		hangman.gameLetters.push("_");
+	}
+
+	// Display empty word spaces
+	hangman.outputWordLetters();
+
+	document.onkeydown = function keyUp(event) {
+
+	}
+} while (gameOver === false);
 
 
 
