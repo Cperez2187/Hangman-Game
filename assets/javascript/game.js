@@ -63,7 +63,7 @@ var hangman = {
 		document.getElementById("guessed").innerHTML = this.gameFormatWord(this.usedLetters);
 	},
 
-	// Check if user has guessed all the correct letters
+	// Check if player has guessed all the correct letters
 	checkWin: function() {
 		for (var i = 0; i < this.gameLetters.length; i++) {
 			if (this.gameLetters[i] === "_") {
@@ -80,7 +80,7 @@ var hangman = {
 	},
 
 	playGame: function(key) {
-		// If game is not over and user pressed a letter
+		// If game is not over and player pressed a letter
 		if (!gameOver && isLetter(key)) {
 			// If Letter is in the word
 			if (this.word.includes(key)) {
@@ -90,6 +90,18 @@ var hangman = {
 						this.gameLetters[i] = String(key);
 					}
 				}
+				this.outputWordLetters();
+
+				// Check if player has won
+				if (this.checkWin()) {
+					alert("YOU WIN!, No one had to die.");
+					console.log("Player has won");
+					gameOver = true;
+				}
+			// if letter is not in word
+			} else {
+				
+
 			}
 
 
