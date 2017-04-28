@@ -96,15 +96,33 @@ var hangman = {
 				if (this.checkWin()) {
 					alert("YOU WIN!, No one had to die.");
 					console.log("Player has won");
+					this.wins++;
 					gameOver = true;
 				}
 			// if letter is not in word
 			} else {
-				
+				// If letter has not been guessed (-1)
+				if (this.usedLetters.indexOf(key) < 0) {
+					// Decrement guessesLeft
+					this.guessesLeft--;
 
+					// Add the letter to the usedLetters[] and display
+					this.usedLetters.push(key);
+					this.outputUsedLetters();
+
+					// Updates hangman image
+					document.getElementById("hm-image").src = 
+						this.images[(this.totalGuesses - this.guessesLeft) - 1];
+
+					// Check if player lost
+					if (this.guessesLeft === 0) {
+						alert("YOU LOSE! Had you been smarter, this man might have lived. Damn you!");
+						console.log("Player loses");
+						this.losses++;
+						gameOver = true;
+					}
+				}
 			}
-
-
 		}
 		else if (gameOver) {
 
@@ -117,26 +135,25 @@ var hangman = {
 //	Play Game
 //****************
 
-do {
-	// Sets 'word' attribute = random word from 'wordBag'
-	hangman.randomWord();
-	console.log("Word: " + hangman.word);
+// Sets 'word' attribute = random word from 'wordBag'
+hangman.randomWord();
+console.log("Word: " + hangman.word);
 
-	// Fills 'gameLetters' array with underscores representing missing letters of word
-	for (var i = 0; i < hangman.word.length; i++) {
-		hangman.gameLetters.push("_");
-	}
+// Fills 'gameLetters' array with underscores representing missing letters of word
+for (var i = 0; i < hangman.word.length; i++) {
+	hangman.gameLetters.push("_");
+}
 
-	// Display empty word spaces
-	hangman.outputWordLetters();
-	hangman.outputUsedLetters();
-	console.log("usedLetters: " + hangman.usedLetters);
+// Display empty word spaces
+hangman.outputWordLetters();
+hangman.outputUsedLetters();
+console.log("usedLetters: " + hangman.usedLetters);
 
-	document.onkeydown = function keyUp(event) {
+document.onkeydown = function keyUp(event) {
+	//Play game
+	hangman.playGame(event.key);
+}
 
-	}
-	gameOver = true;
-} while (gameOver === false);
 
 
 
