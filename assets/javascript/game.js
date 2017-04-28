@@ -31,10 +31,10 @@ var hangman = {
 	
 	// Adds spaces between letters for display purposes
 	gameFormatWord: function(letters) {
-		var formattedWord = "";
+		let formattedWord = "";
 
-		for (var i = 0; i < gameLetters.length; i++) {
-			formattedWord += gameLetters[i];
+		for (var i = 0; i < this.gameLetters.length; i++) {
+			formattedWord += this.gameLetters[i];
 
 			if (i != letters.length - 1) {
 				formattedWord += " ";
@@ -45,18 +45,18 @@ var hangman = {
 
 	// Updates and displays "word-display" in html
 	outputWordLetters: function() {
-		document.getElementById("word-display").innerHTML = gameFormatWord(gameLetters);
+		document.getElementById("word-display").innerHTML = this.gameFormatWord(this.gameLetters);
 	},
 
 	// Updates and displays guessed letters in html
 	outputUsedLetters: function() {
-		document.getElementById("guessed").innerHTML = gameFormatWord(usedLetters);
+		document.getElementById("guessed").innerHTML = this.gameFormatWord(this.usedLetters);
 	},
 
 	// Check if user has guessed all the correct letters
 	checkWin: function() {
-		for (var i = 0; i < gameLetters.length; i++) {
-			if (gameLetters[i] === "_") {
+		for (var i = 0; i < this.gameLetters.length; i++) {
+			if (this.gameLetters[i] === "_") {
 				return false; // Still missing letters
 			}
 		}
@@ -75,13 +75,13 @@ var hangman = {
 
 	// Grabs a random word from wordBag
 	randomWord: function() {
-		word = wordBag[2];
+		this.word = this.wordBag[Math.floor(Math.random() *this.wordBag.length)];
 		// word = wordBag[Math.floor(Math.random() * wordBag.length)];
 	},
 
 	playGame: function(key) {
 
-	},
+	}
 };
 
 //****************
