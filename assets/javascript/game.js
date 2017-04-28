@@ -79,6 +79,25 @@ var hangman = {
 		// word = wordBag[Math.floor(Math.random() * wordBag.length)];
 	},
 
+	// Initializes and resets game after player wins or loses
+	resetGame: function() {
+		// Empty gameLetters and usedLettes
+		this.gameLetters = [];
+		this.usedLetters = [];
+
+		// Sets 'word' attribute = random word from 'wordBag'
+		this.randomWord();
+		console.log("Word: " + this.word);
+
+		// Fills 'gameLetters' array with underscores representing missing letters of word
+		for (var i = 0; i < this.word.length; i++) {
+			this.gameLetters.push("_");
+		}
+
+		// Display empty word spaces
+		this.outputWordLetters();
+	},
+
 	playGame: function(key) {
 		// If game is not over and player pressed a letter
 		if (!gameOver && isLetter(key)) {
@@ -96,7 +115,10 @@ var hangman = {
 				if (this.checkWin()) {
 					alert("YOU WIN!, No one had to die.");
 					console.log("Player has won");
+					// Increment wins and display
 					this.wins++;
+					document.getElementById("wins").innerHTML = "Wins: " + this.wins;
+
 					gameOver = true;
 				}
 			// if letter is not in word
@@ -118,7 +140,10 @@ var hangman = {
 					if (this.guessesLeft === 0) {
 						alert("YOU LOSE! Had you been smarter, this man might have lived. Damn you!");
 						console.log("Player loses");
+						// Increment losses and display
 						this.losses++;
+						document.getElementById("losses").innerHTML = "Losses: " + this.losses;
+						
 						gameOver = true;
 					}
 				}
@@ -135,18 +160,7 @@ var hangman = {
 //	Play Game
 //****************
 
-// Sets 'word' attribute = random word from 'wordBag'
-hangman.randomWord();
-console.log("Word: " + hangman.word);
-
-// Fills 'gameLetters' array with underscores representing missing letters of word
-for (var i = 0; i < hangman.word.length; i++) {
-	hangman.gameLetters.push("_");
-}
-
-// Display empty word spaces
-hangman.outputWordLetters();
-hangman.outputUsedLetters();
+hangman.resetGame();
 console.log("usedLetters: " + hangman.usedLetters);
 
 document.onkeydown = function keyUp(event) {
