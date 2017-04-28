@@ -6,12 +6,24 @@ var gameOver = false;
 
 // Checks if the key is an actual letter
 function isLetter(key) {
+	let result = false;
+
 	let invalidKeys = ["Enter", "Meta", "Control", "Alt", "CapsLock", "Shift",
 	 "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"];
 
 	let alphabet = /^[a-zA-Z]+$/i;
+	
+	// Check if key matches alphabet
+	result = alphabet.test(key);
 
-	return alphabet.test(key);
+	// Check for invalid keys
+	for (var i = 0; i < invalidKeys.length; i++) {
+		if (key === invalidKeys[i]) {
+			result = false;
+		}
+	}
+
+	return result;
 }
 
 //**************************
@@ -81,6 +93,8 @@ var hangman = {
 
 	// Initializes and resets game after player wins or loses
 	resetGame: function() {
+		gameOver = false;
+		this.guessesLeft = 9;
 		// Empty gameLetters and usedLettes
 		this.gameLetters = [];
 		this.usedLetters = [];
@@ -94,8 +108,12 @@ var hangman = {
 			this.gameLetters.push("_");
 		}
 
+		// Reset hangman image
+		
 		// Display empty word spaces
 		this.outputWordLetters();
+		this.outputUsedLetters();
+		document.getElementById("remaining").innerHTML = this.guessesLeft;
 	},
 
 	playGame: function(key) {
@@ -117,9 +135,10 @@ var hangman = {
 					console.log("Player has won");
 					// Increment wins and display
 					this.wins++;
-					document.getElementById("wins").innerHTML = "Wins: " + this.wins;
+					document.getElementById("wins").innerHTML = this.wins;
 
 					gameOver = true;
+					// this.resetGame();
 				}
 			// if letter is not in word
 			} else {
@@ -127,6 +146,7 @@ var hangman = {
 				if (this.usedLetters.indexOf(key) < 0) {
 					// Decrement guessesLeft
 					this.guessesLeft--;
+					document.getElementById("remaining").innerHTML = this.guessesLeft;
 
 					// Add the letter to the usedLetters[] and display
 					this.usedLetters.push(key);
@@ -142,15 +162,16 @@ var hangman = {
 						console.log("Player loses");
 						// Increment losses and display
 						this.losses++;
-						document.getElementById("losses").innerHTML = "Losses: " + this.losses;
-						
+						document.getElementById("losses").innerHTML = this.losses;
+
 						gameOver = true;
+						// this.resetGame();
 					}
 				}
 			}
 		}
 		else if (gameOver) {
-
+			this.resetGame();
 		}
 
 	}
