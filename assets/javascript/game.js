@@ -115,6 +115,8 @@ var hangman = {
 		this.outputWordLetters();
 		this.outputUsedLetters();
 		document.getElementById("remaining").innerHTML = this.guessesLeft;
+
+		document.getElementById("play").innerHTML = "GO AHEAD AND GUESS!";
 	},
 
 	playGame: function(key) {
@@ -139,7 +141,7 @@ var hangman = {
 					document.getElementById("wins").innerHTML = this.wins;
 
 					gameOver = true;
-					// this.resetGame();
+					document.getElementById("play").innerHTML = "PRESS ANY KEY TO PLAY AGAIN!";
 				}
 			// if letter is not in word
 			} else {
@@ -166,7 +168,7 @@ var hangman = {
 						document.getElementById("losses").innerHTML = this.losses;
 
 						gameOver = true;
-						// this.resetGame();
+						document.getElementById("play").innerHTML = "PRESS ANY KEY TO PLAY AGAIN!";
 					}
 				}
 			}
