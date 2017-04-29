@@ -39,9 +39,9 @@ var hangman = {
 	wordBag: ["pig", "cow", "zebra", "lion", "animal", "sahara", "jungle"],  // holds all available words for the game
 	word: "",  // Holds a word from wordBag
 	// Array with hangman images
-	images: ["assets/images/hangman_2.png", "assets/images/hangman_3.png", "assets/images/hangman_4.png",
-			"assets/images/hangman_5.png", "assets/images/hangman_6.png", "assets/images/hangman_7.png", 
-			"assets/images/hangman_8.png", "assets/images/hangman_9.png", "assets/images/hangman_10.png"], 
+	images: ["assets/images/hangman_10.png", "assets/images/hangman_9.png", "assets/images/hangman_8.png",
+			"assets/images/hangman_7.png", "assets/images/hangman_6.png", "assets/images/hangman_5.png", 
+			"assets/images/hangman_4.png", "assets/images/hangman_3.png", "assets/images/hangman_2.png", "assets/images/hangman_1.png"], 
 	gameLetters: [],  // Holds word for displaying
 	usedLetters: [],
 	wins: 0,
@@ -109,6 +109,7 @@ var hangman = {
 		}
 
 		// Reset hangman image
+		document.getElementById("hm-image").src = this.images[this.guessesLeft];
 		
 		// Display empty word spaces
 		this.outputWordLetters();
@@ -147,14 +148,14 @@ var hangman = {
 					// Decrement guessesLeft
 					this.guessesLeft--;
 					document.getElementById("remaining").innerHTML = this.guessesLeft;
+					// Update hangman image
+					document.getElementById("hm-image").src = this.images[this.guessesLeft];
 
 					// Add the letter to the usedLetters[] and display
 					this.usedLetters.push(key);
 					this.outputUsedLetters();
 
-					// Updates hangman image
-					document.getElementById("hm-image").src = 
-						this.images[(this.totalGuesses - this.guessesLeft) - 1];
+					
 
 					// Check if player lost
 					if (this.guessesLeft === 0) {
