@@ -157,8 +157,6 @@ var hangman = {
 					this.usedLetters.push(key);
 					this.outputUsedLetters();
 
-					
-
 					// Check if player lost
 					if (this.guessesLeft === 0) {
 						alert("YOU LOSE! Had you been smarter, this man might have lived. Damn you!");
