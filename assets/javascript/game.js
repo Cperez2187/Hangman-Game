@@ -26,6 +26,7 @@ function isLetter(key) {
 	return result;
 }
 
+
 //**************************
 //	hangman object
 //**************************
@@ -34,7 +35,6 @@ var hangman = {
 	//~~~~~~~~~~~~~~
 	// Properties
 	//~~~~~~~~~~~~~~
-	totalGuesses: 9,
 	guessesLeft: 9,
 	wordBag: ["pig", "cow", "zebra", "lion", "animal", "sahara", "jungle"],  // holds all available words for the game
 	word: "",  // Holds a word from wordBag
@@ -87,7 +87,7 @@ var hangman = {
 
 	// Grabs a random word from wordBag
 	randomWord: function() {
-		this.word = this.wordBag[Math.floor(Math.random() *this.wordBag.length)];
+		this.word = this.wordBag[Math.floor(Math.random() * this.wordBag.length)];
 		// word = wordBag[Math.floor(Math.random() * wordBag.length)];
 	},
 
@@ -95,7 +95,7 @@ var hangman = {
 	resetGame: function() {
 		gameOver = false;
 		this.guessesLeft = 9;
-		// Empty gameLetters and usedLettes
+		// Empty gameLetters and usedLetters
 		this.gameLetters = [];
 		this.usedLetters = [];
 
@@ -171,7 +171,7 @@ var hangman = {
 				}
 			}
 		}
-		else if (gameOver) {
+		else {
 			this.resetGame();
 		}
 
@@ -183,7 +183,6 @@ var hangman = {
 //****************
 
 hangman.resetGame();
-console.log("usedLetters: " + hangman.usedLetters);
 
 document.onkeydown = function keyUp(event) {
 	//Play game
